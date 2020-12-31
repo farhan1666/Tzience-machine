@@ -475,7 +475,7 @@ class Ui_TzienceMachine(object):
 		self.action_Phoneman_btw_Main_development.setText(_translate("TzienceMachine", "@Phoneman_btw - Main development"))
 		self.action_JasonT20015_Moral_support_and_backseating.setText(_translate("TzienceMachine", "@JasonT20015 - Moral support and backseating"))
 		self.action_aatykon_Original_idea_for_the_tool.setText(_translate("TzienceMachine", "@aatykon - Original idea for the tool"))
-		self.actionDJ_Kumboi_Jad_healer_research.setText(_translate("TzienceMachine", "@dj_kumboi - Jad healer/Miscellaneous research"))
+		self.actionDJ_Kumboi_Jad_healer_research.setText(_translate("TzienceMachine", "@DJ Kumboi#0001 - Jad healer/Miscellaneous research"))
 		self.actionWeapon_Twisted_bow_Toxic_blowpipe.setText(_translate("TzienceMachine", "Weapon: Twisted bow/Toxic blowpipe"))
 		self.actionShield_None.setText(_translate("TzienceMachine", "Shield: None"))
 		self.actionEveryone_from_the_Inferno_Speedrunning_Discord_discord_gg_zuk.setText(_translate("TzienceMachine", "Everyone from the Inferno Speedrunning Discord discord.gg/zuk"))
@@ -603,7 +603,7 @@ class Ui_TzienceMachine(object):
 		self.linkToPage("https://twitter.com/haiyoart")
 
 	def linkToDjKumboi(self):
-		self.linkToPage("https://twitter.com/dj_kumboi")
+		self.linkToPage("https://streamable.com/f5nge1")
 
 	def linkToAshTweet(self):
 		self.linkToPage("https://twitter.com/JagexAsh/status/1344226351654514688")

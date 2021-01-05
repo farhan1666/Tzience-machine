@@ -491,10 +491,10 @@ class Ui_TzienceMachine(object):
 		self.action_haiyoart_Application_logo.setText(_translate("TzienceMachine", "@haiyoart - Application logo"))
 
 	def startSim(self):
-		global mager_times, single_jad_times, triple_jad_times, zuk_times, set_zuk_times, no_set_zuk_times, zuk_times_dict #This application is used so we can pretend to fight lava monsters, forgive me if I am not 100% professional and use bad practices
+		global mager_times, single_jad_times, triple_jad_times, zuk_times, set_zuk_times, no_set_zuk_times, mager_times_dict, single_jad_times_dict, triple_jad_times_dict, zuk_times_dict #This application is used so we can pretend to fight lava monsters, forgive me if I am not 100% professional and use bad practices
 		start_time = time.time()
 		n = self.simCount.value()
-		n_but_formatted = "{:,}".format(n)
+		n_but_formatted = zuk_sim_backend.formatN(n)
 		self.completionLine.setText("Running %s simulations..." % (n_but_formatted))
 		self.noSetLine.setText("Running %s simulations..." % (n_but_formatted))
 		self.mageKillTimeLabel.setText("Mager average kill time: x ticks")
@@ -512,7 +512,7 @@ class Ui_TzienceMachine(object):
 		includeZukMager = self.includeZukMager.isChecked()
 		includeZukJad = self.includeZukJad.isChecked()
 		includeZukHealers = self.includeZukHealers.isChecked()
-		mager_times, mage_average, single_jad_times, single_jad_average, triple_jad_average, triple_jad_times, zuk_times, zuk_average, set_zuk_times, set_zuk_average, no_set_zuk_times, no_set_zuk_average, zuk_times_dict = zuk_sim_backend.runSim(n, gear, includeMager, includeJad, includeTrips, includeZuk, includeZukMager, includeZukJad, includeZukHealers)
+		mager_times, mage_average, single_jad_times, single_jad_average, triple_jad_average, triple_jad_times, zuk_times, zuk_average, set_zuk_times, set_zuk_average, no_set_zuk_times, no_set_zuk_average, mager_times_dict, single_jad_times_dict, triple_jad_times_dict, zuk_times_dict = zuk_sim_backend.runSim(n, gear, includeMager, includeJad, includeTrips, includeZuk, includeZukMager, includeZukJad, includeZukHealers)
 		elapsed_time = time.time() - start_time
 		if elapsed_time < 3600:
 			elapsed_time = zuk_sim_backend.format_seconds_to_mmss(elapsed_time)
@@ -537,27 +537,33 @@ class Ui_TzienceMachine(object):
 		output = ', '.join([str(i) for i in list])
 		pyperclip.copy(output)
 
+	def copyDistrubution(self, dict):
+		output = ""
+		for key in sorted(dict.keys()):
+			output += "%s: %s" % (key, dict[key]) + "\n"
+		pyperclip.copy(output)
+
 	def copyMageData(self):
 		try:
-			self.copyData(mager_times)
+			self.copyDistrubution(mager_times_dict)
 		except NameError:
 			pyperclip.copy("As you didn't copy anything here's a nice joke for you: What do you call a programmer from Finland... Nerdic!")
 
 	def copySingleJadData(self):
 		try:
-			self.copyData(single_jad_times)
+			self.copyDistrubution(single_jad_times_dict)
 		except NameError:
 			pyperclip.copy("As you didn't copy anything here's a nice joke for you: What do you call a paper airplane that can't fly... Stationary!")
 
 	def copyTripleJadData(self):
 		try:
-			self.copyData(triple_jad_times)
+			self.copyDistrubution(triple_jad_times_dict)
 		except NameError:
 			pyperclip.copy("As you didn't copy anything here's a nice joke for you: What works faster than a calculator... A Calcu-now!")
 
 	def copyZukData(self):
 		try:
-			self.copyData(zuk_times)
+			self.copyDistrubution(zuk_times_dict)
 		except NameError:
 			pyperclip.copy("As you didn't copy anything here's a nice joke for you: How much does a chimney cost... It's on the house!")
 
@@ -575,10 +581,7 @@ class Ui_TzienceMachine(object):
 
 	def copyZukDistribution(self):
 		try:
-			output = ""
-			for key in sorted(zuk_times_dict.keys()):
-				output += "%s: %s" % (key, zuk_times_dict[key]) + "\n"
-			pyperclip.copy(output)
+			self.copyDistrubution(zuk_times_dict)
 		except NameError:
 			pyperclip.copy('''As you didn't copy anything here's a nice joke for you:
 				Two big girls walk into a bar,

@@ -306,6 +306,9 @@ def avg(list):
 	except ZeroDivisionError:
 		return 0
 
+def formatN(n):
+	return "{:,}".format(n)
+
 def runSim(n, gear, includeMager, includeSingleJad, includeTripleJads, includeZuk, killZukMager, killZukJad, killZukHealers):
 	mager_times = []
 	single_jad_times = []
@@ -313,25 +316,34 @@ def runSim(n, gear, includeMager, includeSingleJad, includeTripleJads, includeZu
 	zuk_times = []
 	set_zuk_times = []
 	no_set_zuk_times = []
+	mager_times_dict = {}
+	single_jad_times_dict = {}
+	triple_jad_times_dict = {}
 	zuk_times_dict = {}
 	if includeMager:
 		for i in range(n):
 			bow_hits, bp_hits = killMager(gear, True)
-			mager_times.append(getCombatTime(bow_hits, bp_hits))
+			mager_time = getCombatTime(bow_hits, bp_hits)
+			mager_times.append(mager_time)
+			increment_dict_value(mager_times_dict, mager_time)
 		mage_average = avg(mager_times)
 	else:
 		mage_average = -1
 	if includeSingleJad:
 		for i in range(n):
 			bow_hits = killJad(gear)
-			single_jad_times.append(getCombatTime(bow_hits, 0))
+			single_jad_time = getCombatTime(bow_hits, 0)
+			single_jad_times.append(single_jad_time)
+			increment_dict_value(single_jad_times_dict, single_jad_time)
 		single_jad_average = avg(single_jad_times)
 	else:
 		single_jad_average = -1
 	if includeTripleJads:
 		for i in range(n):
 			bow_hits = killTripleJads(gear)
-			triple_jad_times.append(getCombatTime(bow_hits, 0))
+			triple_jad_time = getCombatTime(bow_hits, 0)
+			triple_jad_times.append(triple_jad_time)
+			increment_dict_value(triple_jad_times_dict, triple_jad_time)
 		triple_jad_average = avg(triple_jad_times)
 	else:
 		triple_jad_average = -1
@@ -352,8 +364,7 @@ def runSim(n, gear, includeMager, includeSingleJad, includeTripleJads, includeZu
 		zuk_average = -1
 		set_zuk_average = -1
 		no_set_zuk_average = -1
-	return mager_times, mage_average, single_jad_times, single_jad_average, triple_jad_average, triple_jad_times, zuk_times, zuk_average, set_zuk_times, set_zuk_average, no_set_zuk_times, no_set_zuk_average, zuk_times_dict
-
+	return mager_times, mage_average, single_jad_times, single_jad_average, triple_jad_average, triple_jad_times, zuk_times, zuk_average, set_zuk_times, set_zuk_average, no_set_zuk_times, no_set_zuk_average, mager_times_dict, single_jad_times_dict, triple_jad_times_dict, zuk_times_dict
 
 
 def main(x):
